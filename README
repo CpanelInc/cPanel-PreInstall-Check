@@ -1,0 +1,1 @@
+This script will take care of the pre install requirements for cPanel such as checking the selinux config to see if its already disabled and if not check what its set to, and then change it to disabled, disabling iptables, removing yum groups, installing perl and lastly will download the cpanel installer and begin the install.
