@@ -1,7 +1,7 @@
 #!/bin/bash
 ############################
 ## cPanel Preinstall      ##
-## Version 1.0            ##
+## Version 1.0.1          ##
 ## By: Matthew Vetter     ##
 ##     cPanel, Inc.       ##
 ############################
@@ -53,7 +53,7 @@ echo "Perl Installed or Already Installed!";
 echo "==========";
 echo "Server is Ready to Reboot and Re-Install cPanel!";
 
-yum install wget;
+yum -y install wget;
 wget -N http://httpupdate.cpanel.net/latest;
 sh latest;
 echo "==========";
