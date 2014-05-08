@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.1              ##
+##  Version 1.1.1            ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -10,17 +10,20 @@
 
 echo "=====SELINUX CHECK=====";
 
-file="/etc/selinux/config"
+selinuxfile="/etc/selinux/config"
 
-if [ -f "$file" ] ; then
-if ``cat "$file" | grep "SELINUX=" | grep "enforcing" > /dev/null`` ; then
-echo "SELINUX is set to enforcing!";
-elif [ -f "$file" ] ; then
-if ``cat "$file" | grep "SELINUX=" | grep "permissive" > /dev/null`` ; then
-echo "SELINUX is set to permissive!";
-elif [ -f "$file" ] ; then
-if ``cat "$file" | grep "#SELINUX=" > /dev/null`` ; then
-echo "SELINUX is commented out!";
+if [ -f "$selinuxfile" ] ; then
+if ``cat "$selinuxfile" | grep "#SELINUX=" > /dev/null`` ; then
+echo "SELINUX is commented out! You need to uncomment this (remove the # from in front of SELINUX) and set this to disabled!";
+echo "To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux and rebooting the server";
+elif [ -f "$selinuxfile" ] ; then
+if ``cat "$selinuxfile" | grep "SELINUX=" | grep "enforcing" > /dev/null`` ; then
+echo "SELINUX is set to enforcing! You need to set this to disabled!";
+echo "To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux and rebooting the server";
+elif [ -f "$selinuxfile" ] ; then
+if ``cat "$selinuxfile" | grep "SELINUX=" | grep "permissive" > /dev/null`` ; then
+echo "SELINUX is set to permissive! You need to set this to disabled!";
+echo "To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux and rebooting the server";
 else
 echo "Nothing to Fix. SELINUX appears to be disabled already!"
 fi
