@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.001          ##
+##  Version 1.2.002          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -163,3 +163,38 @@ fi
 
 fi
 
+# FQDN Check
+
+echo "=====HOSTNAME FQDN CHECK====="
+
+hostname=`hostname`
+{
+hostnameip=`curl http://cpanel.net/myip 2>/dev/null`
+if [ $? -ne "0" ]; then
+hostnameip="0"
+fi
+}
+fqdnhost=`hostname | grep -P '[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+[.]+[a-zA-Z0-9]'`
+
+if [[ $hostname = $fqdnhost ]]; then
+echo "The server's hostname of $hostname is a FQDN"
+else
+echo "The server's hostname of $hostname is not a FQDN"
+fi
+
+if [ $hostnameip != '0' ]; then
+digresult=`dig $hostname +short`
+
+if [ ! -z "$digresult" ]; then
+if [ $digresult == $hostnameip ]; then
+echo "The IP the hostname resolves to is the same as what's set on the server"
+else
+echo "The hostname resolves to a different IP than what's set on the server"
+echo "The hostname should resolve to $hostnameip, but actually resolves to $digresult"
+fi
+else
+echo "The hostname on the server does not resolve to an IP address"
+fi
+else
+echo "The server's hostname is not in /etc/hosts!"
+fi
