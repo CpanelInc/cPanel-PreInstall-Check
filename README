@@ -1,1 +1,9 @@
-This script will take care of the pre install requirements for cPanel such as checking the selinux config to see if its already disabled and if not check what its set to, and then change it to disabled, disabling iptables, removing yum groups, installing perl and lastly will download the cpanel installer and begin the install.
+This script will help you prepare a server for cPanel installation. It will check various requirements and let you know if there is anything that needs to be fixed and how to do so before proceeding with the install. 
+
+To Run The script simply copy either of the following commands into your servers command line and hit enter:
+
+curl -s https://raw.githubusercontent.com/cpmatthew/cPanel-PreInstall-Check/master/cpanel_preinstall_check.sh | sh
+
+or
+
+curl -s --insecure https://raw.githubusercontent.com/cpmatthew/cPanel-PreInstall-Check/master/cpanel_preinstall_check.sh | sh
