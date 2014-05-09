@@ -67,7 +67,6 @@ echo "=====YUM GROUPS CHECK=====";
 if ``echo "n" | yum groupremove "FTP Server" | grep "Removing:" > /dev/null`` ; then
     echo "FTP Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "FTP Server"';
-    echo "=========="
 else
     echo "FTP Server - Fixed";
 fi
@@ -75,7 +74,6 @@ fi
 if ``echo "n" | yum groupremove "Web Server" | grep "Removing:" > /dev/null`` ; then
     echo "Web Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Web Server"';
-    echo "=========="
 else
     echo "Web Server - Fixed";
 fi
@@ -83,7 +81,6 @@ fi
 if ``echo "n" | yum groupremove "X Window System" | grep "Removing:" > /dev/null`` ; then
     echo "X Window System is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "X Window System"';
-    echo "=========="
 else
     echo "X Window System - Fixed";
 fi
@@ -94,7 +91,6 @@ if ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
 if ``echo "n" | yum groupremove "E-mail Server" | grep "Removing:"  > /dev/null`` ; then
     echo "E-mail Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "E-mail Server"';
-    echo "=========="
 else
     echo "E-Mail Server - Fixed";
 fi
@@ -102,7 +98,6 @@ fi
 if ``echo "n" | yum groupremove "KDE Desktop" | grep "Removing:" > /dev/null`` ; then
     echo "KDE Desktop is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "KDE Desktop"';
-    echo "=========="
 else
     echo "KDE Desktop - Fixed";
 fi
@@ -110,7 +105,6 @@ fi
 if ``echo "n" | yum groupremove "Desktop" | grep "Removing:" > /dev/null`` ; then
     echo "Gnome Desktop is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Desktop"';
-    echo "=========="
 else
     echo "Gnome Desktop - Fixed";
 fi
@@ -124,7 +118,6 @@ if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
 if ``echo "n" | yum groupremove "Mail Server" | grep "Removing:" | grep -v "No group named" > /dev/null`` ; then
     echo "Mail Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Mail Server"';
-    echo "=========="
 else
     echo "Mail Server - Fixed";
 fi
@@ -132,7 +125,6 @@ fi
 if ``echo "n" | yum groupremove "GNOME Desktop Environment" | grep "Removing:" > /dev/null`` ; then
     echo "GNOME Desktop Environment is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "GNOME Desktop Environment"';
-    echo "=========="
 else
     echo "GNOME Desktop Environment - Fixed";
 fi
@@ -140,7 +132,6 @@ fi
 if ``echo "n" | yum groupremove "KDE (K Desktop Environment)" | grep "Removing:" > /dev/null`` ; then
     echo "KDE (K Desktop Environment) is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "KDE (K Desktop Environment)"';
-    echo "=========="
 else
     echo "KDE (K Desktop Environment) - Fixed";
 fi
@@ -148,7 +139,6 @@ fi
 if ``echo "n" | yum groupremove "Mono" | grep "Removing:" > /dev/null`` ; then
     echo "Mono is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Mono"';
-    echo "=========="
 else
     echo "Mono - Fixed";
 fi
