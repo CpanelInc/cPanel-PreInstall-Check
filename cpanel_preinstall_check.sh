@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.1.2.02         ##
+##  Version 1.1.2.03         ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -67,56 +67,52 @@ echo "=====YUM GROUPS CHECK=====";
 if ``echo "n" | yum groupremove "FTP Server" | grep "Removing:" > /dev/null`` ; then
     echo "FTP Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "FTP Server"';
-elif ``echo "n" | yum groupremove "FTP Server" | grep "No packages to remove from groups" > /dev/null`` ; then
-    echo "FTP Server is Not Installed";
+    echo "=========="
+else
+    echo "FTP Server - Fixed";
 fi
 
 if ``echo "n" | yum groupremove "Web Server" | grep "Removing:" > /dev/null`` ; then
-    echo "=========="
     echo "Web Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Web Server"';
-elif ``echo "n" | yum groupremove "Web Server" | grep "No packages to remove from groups" > /dev/null`` ; then
     echo "=========="
-    echo "Web Server is Not Installed";
+else
+    echo "Web Server - Fixed";
 fi
 
 if ``echo "n" | yum groupremove "X Window System" | grep "Removing:" > /dev/null`` ; then
-    echo "=========="
     echo "X Window System is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "X Window System"';
-elif ``echo "n" | yum groupremove "X Window System" | grep "No packages to remove from groups" > /dev/null`` ; then
     echo "=========="
-    echo "X Window System is Not Installed";
+else
+    echo "X Window System - Fixed";
 fi
 
 # New Group Names CentOS/RHEL 6.*
 if ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
 
 if ``echo "n" | yum groupremove "E-mail Server" | grep "Removing:"  > /dev/null`` ; then
-    echo "=========="
     echo "E-mail Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "E-mail Server"';
-elif ``echo "n" | yum groupremove "E-mail Server" | grep "No packages to remove from groups"  > /dev/null`` ; then
     echo "=========="
-    echo "E-Mail Server is Not Installed";
+else
+    echo "E-Mail Server - Fixed";
 fi
 
 if ``echo "n" | yum groupremove "KDE Desktop" | grep "Removing:" > /dev/null`` ; then
-    echo "=========="
     echo "KDE Desktop is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "KDE Desktop"';
-elif ``echo "n" | yum groupremove "KDE Desktop" | grep "No packages to remove from groups" > /dev/null`` ; then
     echo "=========="
-    echo "KDE Desktop is Not Installed";
+else
+    echo "KDE Desktop - Fixed";
 fi
 
 if ``echo "n" | yum groupremove "Desktop" | grep "Removing:" > /dev/null`` ; then
-    echo "=========="
     echo "Gnome Desktop is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Desktop"';
-elif ``echo "n" | yum groupremove "Desktop" | grep "No packages to remove from groups" > /dev/null`` ; then
     echo "=========="
-    echo "Gnome Desktop is Not Installed";
+else
+    echo "Gnome Desktop - Fixed";
 fi
 
 fi
@@ -126,39 +122,35 @@ fi
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
 
 if ``echo "n" | yum groupremove "Mail Server" | grep "Removing:" | grep -v "No group named" > /dev/null`` ; then
-    echo "=========="
     echo "Mail Server is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Mail Server"';
-elif ``echo "n" | yum groupremove "Mail Server" | grep "No packages to remove from groups" | grep -v "No group named"  > /dev/null`` ; then
     echo "=========="
-    echo "Mail Server is Not Installed";
+else
+    echo "Mail Server - Fixed";
 fi
 
 if ``echo "n" | yum groupremove "GNOME Desktop Environment" | grep "Removing:" > /dev/null`` ; then
-    echo "=========="
     echo "GNOME Desktop Environment is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "GNOME Desktop Environment"';
-elif ``echo "n" | yum groupremove "GNOME Desktop Environment" | grep "No packages to remove from groups" > /dev/null`` ; then
     echo "=========="
-    echo "GNOME Desktop Environment is Not Installed";
+else
+    echo "GNOME Desktop Environment - Fixed";
 fi
 
 if ``echo "n" | yum groupremove "KDE (K Desktop Environment)" | grep "Removing:" > /dev/null`` ; then
-    echo "=========="
     echo "KDE (K Desktop Environment) is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "KDE (K Desktop Environment)"';
-elif ``echo "n" | yum groupremove "KDE (K Desktop Environment)" | grep "No packages to remove from groups" > /dev/null`` ; then
     echo "=========="
-    echo "KDE (K Desktop Environment) is Not Installed";
+else
+    echo "KDE (K Desktop Environment) - Fixed";
 fi
 
 if ``echo "n" | yum groupremove "Mono" | grep "Removing:" > /dev/null`` ; then
-    echo "=========="
     echo "Mono is Installed. You should remove this";
     echo '==> To remove this run: yum groupremove "Mono"';
-elif ``echo "n" | yum groupremove "Mono" | grep "No packages to remove from groups" > /dev/null`` ; then
     echo "=========="
-    echo "Mono is Not Installed";
+else
+    echo "Mono - Fixed";
 fi
 
 fi
@@ -200,6 +192,8 @@ else
 fi
 
 # OS Check
+
+echo "=====SUPPORTED OS CHECK====="
 
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
     cat /etc/redhat-release;
