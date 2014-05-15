@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.0.4          ##
+##  Version 1.2.0.5          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -18,9 +18,9 @@ NC='\e[0m' # No Color (if Not added, it will change the entire terminal output t
 echo -e "${yellow}=====PERL CHECK=====${NC}";
 
 if perl < /dev/null > /dev/null 2>&1  ; then
-        echo -e "${green}Perl is Installed. Nothing to Fix!${NC}"
+        echo -e "${green}Perl is Installed - Pass${NC}"
     else
-        echo -e "${red}Perl not Installed. You need to install this!${NC}";
+        echo -e "${red}Perl not Installed - Fail${NC}";
         echo -e "\t \_ To install perl run: yum install perl";
 fi
 
@@ -32,18 +32,22 @@ selinuxfile="/etc/selinux/config"
 
 if [ -f "$selinuxfile" ] ; then
     if ``cat "$selinuxfile" | grep "#SELINUX=" > /dev/null`` ; then
-            echo -e "${red}SELINUX is commented out! You need to uncomment this (remove the # from in front of SELINUX) and set this to disabled!${NC}";
-            echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux and rebooting the server";
+            echo -e "${red}SELINUX - Fail${NC}";
+            echo -e "\t \_ SELINUX is commented out!"
+            echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux, uncommenting SELINUX (remove the # from in front of SELINUX), setting it to disabled and then rebooting the server";
 elif [ -f "$selinuxfile" ] ; then
     if ``cat "$selinuxfile" | grep "SELINUX=" | grep "enforcing" > /dev/null`` ; then
-            echo -e "${red}SELINUX is set to enforcing! You need to set this to disabled!${NC}";
-            echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux and rebooting the server";
+            echo -e "${red}SELINUX - Fail${NC}";
+            echo -e "\t \_ SELINUX is set to enforcing!"
+            echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux, setting it to disabled and then rebooting the server";
 elif [ -f "$selinuxfile" ] ; then
     if ``cat "$selinuxfile" | grep "SELINUX=" | grep "permissive" > /dev/null`` ; then
-            echo -e "${red}SELINUX is set to permissive! You need to set this to disabled!${NC}";
-            echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux and rebooting the server";
+            echo -e "${red}SELINUX - Fail${NC}";
+            echo -e "\t \_ SELINUX is set to permissive!"
+            echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux, setting it to disabled and then rebooting the server";
 else
-    echo -e "${green}Nothing to Fix. SELINUX appears to be disabled already!${NC}"
+    echo -e "${green}SELINUX - Pass${NC}";
+    echo -e "\t \_ SELINUX appears to be disabled already";
 fi
 fi
 fi
@@ -53,18 +57,18 @@ echo -e "${yellow}=====FIREWALL CHECK=====${NC}";
 
 # Check if iptable disabled in chkconfig
 if ``chkconfig --list | grep iptables | grep "0:off	1:off	2:off	3:off	4:off	5:off	6:off" > /dev/null`` ; then
-        echo -e "${green}Firewall off in ChkConfig. Nothing to Fix!${NC}";
+        echo -e "${green}Firewall off in ChkConfig - Pass${NC}";
     elif ``chkconfig --list | grep iptables | grep "on" > /dev/null`` ; then
-        echo -e "${red}Firewall enabled in ChkConfig. You should turn this off.${NC}";
+        echo -e "${red}Firewall enabled in ChkConfig - Fail${NC}";
         echo -e "\t \_ To turn this off run: chkconfig iptables off";
 fi
 
 # Check if Firewall Running
 if ``/etc/init.d/iptables status | grep "Table: filter" > /dev/null`` ; then
-        echo -e "${red}Firewall Running. You should disable this.${NC}";
+        echo -e "${red}Firewall Running - Fail${NC}";
         echo -e "\t \_ To disable this run: /etc/init.d/iptables save; /etc/init.d/iptables stop";
     elif ``/etc/init.d/iptables status | grep "Firewall is not running" > /dev/null`` ; then
-        echo -e "${green}Firewall Not Running. Nothing to Fix!${NC}";
+        echo -e "${green}Firewall Not Running - Pass${NC}";
 fi
 
 # Check for Yum Groups All Versions (Group names the same accross all versions)
@@ -72,48 +76,48 @@ fi
 echo -e "${yellow}=====YUM GROUPS CHECK=====${NC}";
 
 if ``echo -e "n" | yum groupremove "FTP Server" | grep "Removing:" > /dev/null`` ; then
-        echo -e "${red}FTP Server is Installed. You should remove this${NC}";
+        echo -e "${red}FTP Server - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "FTP Server"';
     else
-        echo -e "${green}FTP Server - Fixed${NC}";
+        echo -e "${green}FTP Server - Pass${NC}";
 fi
 
 if ``echo -e "n" | yum groupremove "Web Server" | grep "Removing:" > /dev/null`` ; then
-        echo -e "${red}Web Server is Installed. You should remove this${NC}";
+        echo -e "${red}Web Server - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "Web Server"';
     else
-        echo -e "${green}Web Server - Fixed${NC}";
+        echo -e "${green}Web Server - Pass${NC}";
 fi
 
 if ``echo -e "n" | yum groupremove "X Window System" | grep "Removing:" > /dev/null`` ; then
-        echo -e "${red}X Window System is Installed. You should remove this${NC}";
+        echo -e "${red}X Window System - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "X Window System"';
     else
-        echo -e "${green}X Window System - Fixed${NC}";
+        echo -e "${green}X Window System - Pass${NC}";
 fi
 
 # New Group Names CentOS/RHEL 6.*
 if ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
 
     if ``echo -e "n" | yum groupremove "E-mail Server" | grep "Removing:"  > /dev/null`` ; then
-            echo -e "${red}E-mail Server is Installed. You should remove this${NC}";
+            echo -e "${red}E-mail Server - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "E-mail Server"';
         else
-            echo -e "${green}E-Mail Server - Fixed${NC}";
+            echo -e "${green}E-Mail Server - Pass${NC}";
     fi
 
     if ``echo -e "n" | yum groupremove "KDE Desktop" | grep "Removing:" > /dev/null`` ; then
-            echo -e "${red}KDE Desktop is Installed. You should remove this${NC}";
+            echo -e "${red}KDE Desktop - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "KDE Desktop"';
         else
-            echo -e "${green}KDE Desktop - Fixed${NC}";
+            echo -e "${green}KDE Desktop - Pass${NC}";
     fi
 
     if ``echo -e "n" | yum groupremove "Desktop" | grep "Removing:" > /dev/null`` ; then
-            echo -e "${red}Gnome Desktop is Installed. You should remove this${NC}";
+            echo -e "${red}Gnome Desktop - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "Desktop"';
         else
-            echo -e "${green}Gnome Desktop - Fixed${NC}";
+            echo -e "${green}Gnome Desktop - Pass${NC}";
     fi
 
 fi
@@ -123,31 +127,31 @@ fi
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
 
     if ``echo -e "n" | yum groupremove "Mail Server" | grep "Removing:" | grep -v "No group named" > /dev/null`` ; then
-            echo -e "${red}Mail Server is Installed. You should remove this${NC}";
+            echo -e "${red}Mail Server - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "Mail Server"';
         else
-            echo -e "${green}Mail Server - Fixed${NC}";
+            echo -e "${green}Mail Server - Pass${NC}";
     fi
 
     if ``echo -e "n" | yum groupremove "GNOME Desktop Environment" | grep "Removing:" > /dev/null`` ; then
-            echo -e "${red}GNOME Desktop Environment is Installed. You should remove this${NC}";
+            echo -e "${red}GNOME Desktop Environment - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "GNOME Desktop Environment"';
         else
-            echo -e "${green}GNOME Desktop Environment - Fixed${NC}";
+            echo -e "${green}GNOME Desktop Environment - Pass${NC}";
     fi
 
     if ``echo -e "n" | yum groupremove "KDE (K Desktop Environment)" | grep "Removing:" > /dev/null`` ; then
-            echo -e "${red}KDE (K Desktop Environment) is Installed. You should remove this${NC}";
+            echo -e "${red}KDE (K Desktop Environment) - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "KDE (K Desktop Environment)"';
         else
-            echo -e "${green}KDE (K Desktop Environment) - Fixed${NC}";
+            echo -e "${green}KDE (K Desktop Environment) - Pass${NC}";
     fi
 
     if ``echo -e "n" | yum groupremove "Mono" | grep "Removing:" > /dev/null`` ; then
-            echo -e "${red}Mono is Installed. You should remove this${NC}";
+            echo -e "${red}Mono - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "Mono"';
         else
-            echo -e "${green}Mono - Fixed${NC}";
+            echo -e "${green}Mono - Pass${NC}";
     fi
 
 fi
