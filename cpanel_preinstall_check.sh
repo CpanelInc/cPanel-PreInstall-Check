@@ -214,9 +214,9 @@ else
 fi
 
 if ``uname -r | grep -P "2.[0-9].[0-9]." > /dev/null`` ; then
-        echo "${green}Kernel Supported${NC}";
+        echo -e "${green}Kernel Supported${NC}";
         echo -e "\t \_ `uname -r`";
     else
-        echo "${red}Kernel Not Supported${NC}";
+        echo -e "${red}Kernel Not Supported${NC}";
         echo -e "\t \_ `uname -r`";
 fi
