@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.1.5          ##
+##  Version 1.2.2.0          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -198,7 +198,7 @@ fi
         echo -e "\t \_ ${red}The server's hostname is not in /etc/hosts!${NC}"
 fi
 
-# OS Check
+# OS & Kernel Check
 
 echo -e "${yellow}=====SUPPORTED OS CHECK=====${NC}"
 
@@ -211,4 +211,12 @@ elif ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
 else
         echo -e "${red}The OS is Not Supported${NC}";
         echo -e "\t \_`cat /etc/redhat-release`"
+fi
+
+if ``uname -r | grep -P "2.[0-9].[0-9]." > /dev/null`` ; then
+        echo "Kernel Supported";
+        echo -e "\t \_ `uname -r`";
+    else
+        echo "Kernel Not Supported";
+        echo -e "\t \_ `uname -r`";
 fi
