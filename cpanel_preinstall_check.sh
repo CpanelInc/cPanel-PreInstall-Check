@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.0.6          ##
+##  Version 1.2.1.0          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -77,21 +77,21 @@ fi
 
 echo -e "${yellow}=====YUM GROUPS CHECK=====${NC}";
 
-if ``echo -e "n" | yum groupremove "FTP Server" | grep "Removing:" > /dev/null`` ; then
+if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep  "FTP Server"`` ; then
         echo -e "${red}FTP Server - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "FTP Server"';
     else
         echo -e "${green}FTP Server - Pass${NC}";
 fi
 
-if ``echo -e "n" | yum groupremove "Web Server" | grep "Removing:" > /dev/null`` ; then
+if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "Web Server"`` ; then
         echo -e "${red}Web Server - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "Web Server"';
     else
         echo -e "${green}Web Server - Pass${NC}";
 fi
 
-if ``echo -e "n" | yum groupremove "X Window System" | grep "Removing:" > /dev/null`` ; then
+if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep  "X Window System"`` ; then
         echo -e "${red}X Window System - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "X Window System"';
     else
@@ -101,21 +101,21 @@ fi
 # New Group Names CentOS/RHEL 6.*
 if ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
 
-    if ``echo -e "n" | yum groupremove "E-mail Server" | grep "Removing:"  > /dev/null`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "E-mail Server"`` ; then
             echo -e "${red}E-mail Server - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "E-mail Server"';
         else
             echo -e "${green}E-Mail Server - Pass${NC}";
     fi
 
-    if ``echo -e "n" | yum groupremove "KDE Desktop" | grep "Removing:" > /dev/null`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep  "KDE Desktop"`` ; then
             echo -e "${red}KDE Desktop - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "KDE Desktop"';
         else
             echo -e "${green}KDE Desktop - Pass${NC}";
     fi
 
-    if ``echo -e "n" | yum groupremove "Desktop" | grep "Removing:" > /dev/null`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "Desktop"`` ; then
             echo -e "${red}Gnome Desktop - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "Desktop"';
         else
@@ -128,28 +128,28 @@ fi
 
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
 
-    if ``echo -e "n" | yum groupremove "Mail Server" | grep "Removing:" | grep -v "No group named" > /dev/null`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "Mail Server"``; then
             echo -e "${red}Mail Server - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "Mail Server"';
         else
             echo -e "${green}Mail Server - Pass${NC}";
     fi
 
-    if ``echo -e "n" | yum groupremove "GNOME Desktop Environment" | grep "Removing:" > /dev/null`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "GNOME Desktop Environment"``; then
             echo -e "${red}GNOME Desktop Environment - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "GNOME Desktop Environment"';
         else
             echo -e "${green}GNOME Desktop Environment - Pass${NC}";
     fi
 
-    if ``echo -e "n" | yum groupremove "KDE (K Desktop Environment)" | grep "Removing:" > /dev/null`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "KDE (K Desktop Environment)"`` ; then
             echo -e "${red}KDE (K Desktop Environment) - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "KDE (K Desktop Environment)"';
         else
             echo -e "${green}KDE (K Desktop Environment) - Pass${NC}";
     fi
 
-    if ``echo -e "n" | yum groupremove "Mono" | grep "Removing:" > /dev/null`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "Mono"`` ; then
             echo -e "${red}Mono - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "Mono"';
         else
