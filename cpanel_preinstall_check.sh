@@ -24,6 +24,7 @@ if perl < /dev/null > /dev/null 2>&1  ; then
                 echo -e "\t \_ Latest version in Yum is - Perl `yum info perl | grep Version | awk '{print $3}'`"
             elif ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
                 echo -e "\t \_ Latest version in Yum is - Perl ` yum info perl | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}' | grep Version | awk '{print $2}' > /dev/null`"
+            fi
     else
         echo -e "${red}Perl not Installed - Fail${NC}";
         echo -e "\t \_ To install perl run: yum install perl";
