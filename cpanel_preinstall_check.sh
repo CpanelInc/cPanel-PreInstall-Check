@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.2.0          ##
+##  Version 1.2.2.1          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -214,9 +214,9 @@ else
 fi
 
 if ``uname -r | grep -P "2.[0-9].[0-9]." > /dev/null`` ; then
-        echo "Kernel Supported";
+        echo "${green}Kernel Supported${NC}";
         echo -e "\t \_ `uname -r`";
     else
-        echo "Kernel Not Supported";
+        echo "${red}Kernel Not Supported${NC}";
         echo -e "\t \_ `uname -r`";
 fi
