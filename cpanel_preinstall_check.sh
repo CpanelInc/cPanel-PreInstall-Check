@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.1.3          ##
+##  Version 1.2.1.4          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -20,7 +20,10 @@ echo -e "${yellow}=====PERL CHECK=====${NC}";
 if perl < /dev/null > /dev/null 2>&1  ; then
         echo -e "${green}Perl is Installed - Pass${NC}"
         echo -e "\t \_ Perl `perl -v | grep 'This is perl, v'| awk '{print $4}'` Installed - Verify this is a Supported Version"
-        echo -e "\t \_ Latest version in Yum is - Perl `yum info perl | grep Version | awk '{print $3}'`"
+            if ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
+                echo -e "\t \_ Latest version in Yum is - Perl `yum info perl | grep Version | awk '{print $3}'`"
+            elif ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
+                echo -e "\t \_ Latest version in Yum is - Perl ` yum info perl | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}' | grep Version | awk '{print $2}' > /dev/null`"
     else
         echo -e "${red}Perl not Installed - Fail${NC}";
         echo -e "\t \_ To install perl run: yum install perl";
