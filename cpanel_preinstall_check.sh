@@ -19,7 +19,7 @@ echo -e "${yellow}=====PERL CHECK=====${NC}";
 
 if perl < /dev/null > /dev/null 2>&1  ; then
         echo -e "${green}Perl is Installed - Pass${NC}"
-        echo -e "\t \_ `perl -v | grep 'This is perl, v'` - Verify this is a Supported Version"
+        echo -e "\t \_ Perl `perl -v | grep 'This is perl, v'| awk '{print $4}'` Installed - Verify this is a Supported Version"
         echo -e "\t \_ Latest version in Yum is - Perl `yum info perl | grep Version | awk '{print $3}'`"
     else
         echo -e "${red}Perl not Installed - Fail${NC}";
