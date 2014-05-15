@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.1.2          ##
+##  Version 1.2.1.3          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -128,7 +128,7 @@ fi
 
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
 
-    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "Mail Server > /dev/null"``; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "Mail Server" > /dev/null``; then
             echo -e "${red}Mail Server - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "Mail Server"';
         else
