@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.0.1          ##
+##  Version 1.2.0.2          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -176,16 +176,16 @@ if [ $hostnameip != '0' ]; then
 
 if [ ! -z "$digresult" ]; then
     if [ $digresult == $hostnameip ]; then
-        echo -e "     \_${green}The IP the hostname resolves to is the same as what's set on the server${NC}"
+        echo -e "     \_ ${green}The IP the hostname resolves to is the same as what's set on the server${NC}"
     else
-        echo -e "     \_${red}The hostname resolves to a different IP than what's set on the server${NC}"
-        echo -e "     \_${red}The hostname should resolve to $hostnameip, but actually resolves to $digresult${NC}"
+        echo -e "     \_ ${red}The hostname resolves to a different IP than what's set on the server${NC}"
+        echo -e "     \_ ${red}The hostname should resolve to $hostnameip, but actually resolves to $digresult${NC}"
 fi
     else
-        echo -e "     \_${red}The hostname on the server does not resolve to an IP address${NC}"
+        echo -e "     \_ ${red}The hostname on the server does not resolve to an IP address${NC}"
 fi
     else
-        echo -e "     \_${red}The server's hostname is not in /etc/hosts!${NC}"
+        echo -e "     \_ ${red}The server's hostname is not in /etc/hosts!${NC}"
 fi
 
 # OS Check
