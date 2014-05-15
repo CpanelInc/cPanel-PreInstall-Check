@@ -190,15 +190,18 @@ fi
 
 # OS Check
 
+MYOS=$(cat /etc/redhat-release)
+echo -e "     \_$OUT";
+
 echo -e "${yellow}=====SUPPORTED OS CHECK=====${NC}"
 
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
             echo -e "${green}The OS is Supported${NC}";
-            cat /etc/redhat-release;
+            echo -e "     \_ $MYOS";
 elif ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
             echo -e "${green}The OS is Supported${NC}";
-            cat /etc/redhat-release;
+            echo -e "     \_ $MYOS";
 else
         echo -e "${red}The OS is Not Supported${NC}";
-        cat /etc/redhat-release;
+        echo -e "     \_ $MYOS";
 fi
