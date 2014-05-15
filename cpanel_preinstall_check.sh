@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2              ##
+##  Version 1.2.0.1          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -176,16 +176,16 @@ if [ $hostnameip != '0' ]; then
 
 if [ ! -z "$digresult" ]; then
     if [ $digresult == $hostnameip ]; then
-        echo -e "${green}The IP the hostname resolves to is the same as what's set on the server${NC}"
+        echo -e "     \_${green}The IP the hostname resolves to is the same as what's set on the server${NC}"
     else
-        echo -e "${red}The hostname resolves to a different IP than what's set on the server${NC}"
-        echo -e "${red}The hostname should resolve to $hostnameip, but actually resolves to $digresult${NC}"
+        echo -e "     \_${red}The hostname resolves to a different IP than what's set on the server${NC}"
+        echo -e "     \_${red}The hostname should resolve to $hostnameip, but actually resolves to $digresult${NC}"
 fi
     else
-        echo -e "${red}The hostname on the server does not resolve to an IP address${NC}"
+        echo -e "     \_${red}The hostname on the server does not resolve to an IP address${NC}"
 fi
     else
-        echo -e "${red}The server's hostname is not in /etc/hosts!${NC}"
+        echo -e "     \_${red}The server's hostname is not in /etc/hosts!${NC}"
 fi
 
 # OS Check
@@ -193,12 +193,12 @@ fi
 echo -e "${yellow}=====SUPPORTED OS CHECK=====${NC}"
 
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
-            cat /etc/redhat-release;
             echo -e "${green}The OS is Supported${NC}";
+            cat /etc/redhat-release;
 elif ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
-            cat /etc/redhat-release;
             echo -e "${green}The OS is Supported${NC}";
+            cat /etc/redhat-release;
 else
-        cat /etc/redhat-release;
         echo -e "${red}The OS is Not Supported${NC}";
+        cat /etc/redhat-release;
 fi
