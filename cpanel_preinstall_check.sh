@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.1.0          ##
+##  Version 1.2.1.1          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -77,7 +77,7 @@ fi
 
 echo -e "${yellow}=====YUM GROUPS CHECK=====${NC}";
 
-if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep  "FTP Server"`` ; then
+if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "FTP server"`` ; then
         echo -e "${red}FTP Server - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "FTP Server"';
     else
@@ -91,7 +91,7 @@ if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{
         echo -e "${green}Web Server - Pass${NC}";
 fi
 
-if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep  "X Window System"`` ; then
+if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "X Window System"`` ; then
         echo -e "${red}X Window System - Fail${NC}";
         echo -e '\t \_ To remove this run: yum groupremove "X Window System"';
     else
@@ -101,14 +101,14 @@ fi
 # New Group Names CentOS/RHEL 6.*
 if ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
 
-    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "E-mail Server"`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "E-mail server"`` ; then
             echo -e "${red}E-mail Server - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "E-mail Server"';
         else
             echo -e "${green}E-Mail Server - Pass${NC}";
     fi
 
-    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep  "KDE Desktop"`` ; then
+    if ``yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "KDE Desktop"`` ; then
             echo -e "${red}KDE Desktop - Fail${NC}";
             echo -e '\t \_ To remove this run: yum groupremove "KDE Desktop"';
         else
