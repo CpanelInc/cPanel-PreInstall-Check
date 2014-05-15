@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.2.2          ##
+##  Version 1.2.2.3          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -213,11 +213,11 @@ else
         echo -e "\t \_`cat /etc/redhat-release`"
 fi
 
-if ``cat kernel | grep "grs" > /dev/null``; then
+if ``uname -r | grep "grs" > /dev/null``; then
         echo -e "${red}Kernel Not Supported${NC}";
         echo -e "\t \_ GRSEC Kernels are Not Supported";
         echo -e "\t \_ `uname -r`";
-    elif ``cat kernel | grep -P "2.[0-9]." > /dev/null`` ; then
+    elif ``uname -r | grep -P "2.[0-9]." > /dev/null`` ; then
         echo -e "${green}Kernel Supported${NC}";
         echo -e "\t \_ `uname -r`";
     else
