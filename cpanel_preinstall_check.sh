@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.2.4          ##
+##  Version 1.2.2.5          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -217,7 +217,7 @@ if ``uname -r | grep "grs" > /dev/null``; then
         echo -e "${red}Kernel Not Supported${NC}";
         echo -e "\t \_ GRSEC Kernels are Not Supported";
         echo -e "\t \_ `uname -r`";
-    elif ``uname -r | grep -i "x" > /dev/null``; then
+    elif ``uname -r | grep -i "xx" > /dev/null``; then
         echo -e "${red}Kernel Not Supported${NC}";
         echo -e "\t \_ GRSEC Kernels are Not Supported";
         echo -e "\t \_ `uname -r`";
