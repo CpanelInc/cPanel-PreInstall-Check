@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.2.6          ##
+##  Version 1.2.3            ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -181,21 +181,27 @@ if [[ $hostname = $fqdnhost ]]; then
         echo -e "${red}The server's hostname of $hostname is not a FQDN${NC}"
 fi
 
-if [ $hostnameip != '0' ]; then
+if dig < /dev/null > /dev/null 2>&1  ; then
+
+    if [ $hostnameip != '0' ]; then
     digresult=`dig $hostname +short`
 
-if [ ! -z "$digresult" ]; then
-    if [ $digresult == $hostnameip ]; then
-        echo -e "\t \_ ${green}The IP the hostname resolves to is the same as what's set on the server${NC}"
-    else
-        echo -e "\t \_ ${red}The hostname resolves to a different IP than what's set on the server${NC}"
-        echo -e "\t \_ ${red}The hostname should resolve to $hostnameip, but actually resolves to $digresult${NC}"
-fi
-    else
-        echo -e "\t \_ ${red}The hostname on the server does not resolve to an IP address${NC}"
-fi
-    else
-        echo -e "\t \_ ${red}The server's hostname is not in /etc/hosts!${NC}"
+        if [ ! -z "$digresult" ]; then
+            if [ $digresult == $hostnameip ]; then
+                echo -e "\t \_ ${green}The IP the hostname resolves to is the same as what's set on the server${NC}"
+            else
+                echo -e "\t \_ ${red}The hostname resolves to a different IP than what's set on the server${NC}"
+                echo -e "\t \_ ${red}The hostname should resolve to $hostnameip, but actually resolves to $digresult${NC}"
+            fi
+        else
+            echo -e "\t \_ ${red}The hostname on the server does not resolve to an IP address${NC}"
+        fi
+        else
+            echo -e "\t \_ ${red}The server's hostname is not in /etc/hosts!${NC}"
+    fi
+else
+    echo -e "\t \_ ${red}Can't check if hostname resolves to an IP because Dig is not installed.${NC}"
+    echo -e "\t \_ To install dig run: yum install bind-utils"
 fi
 
 # OS & Kernel Check
