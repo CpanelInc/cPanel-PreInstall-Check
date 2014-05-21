@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.3            ##
+##  Version 1.2.4            ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -57,24 +57,6 @@ else
 fi
 fi
 fi
-fi
-
-echo -e "${yellow}=====FIREWALL CHECK=====${NC}";
-
-# Check if iptable disabled in chkconfig
-if ``chkconfig --list | grep iptables | grep "0:off	1:off	2:off	3:off	4:off	5:off	6:off" > /dev/null`` ; then
-        echo -e "${green}Firewall off in ChkConfig - Pass${NC}";
-    elif ``chkconfig --list | grep iptables | grep "on" > /dev/null`` ; then
-        echo -e "${red}Firewall enabled in ChkConfig - Fail${NC}";
-        echo -e "\t \_ To turn this off run: chkconfig iptables off";
-fi
-
-# Check if Firewall Running
-if ``/etc/init.d/iptables status | grep "Table: filter" > /dev/null`` ; then
-        echo -e "${red}Firewall Running - Fail${NC}";
-        echo -e "\t \_ To disable this run: /etc/init.d/iptables save; /etc/init.d/iptables stop";
-    elif ``/etc/init.d/iptables status | grep "Firewall is not running" > /dev/null`` ; then
-        echo -e "${green}Firewall Not Running - Pass${NC}";
 fi
 
 # Check for Yum Groups All Versions (Group names the same accross all versions)
