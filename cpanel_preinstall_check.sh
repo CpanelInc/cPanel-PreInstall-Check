@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.2.5          ##
+##  Version 1.2.2.6          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -200,7 +200,7 @@ fi
 
 # OS & Kernel Check
 
-echo -e "${yellow}=====SUPPORTED OS & KERNEL CHECK=====${NC}"
+echo -e "${yellow}=====OS & KERNEL CHECK=====${NC}"
 
 if ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
             echo -e "${green}The OS is Supported${NC}";
