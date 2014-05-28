@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.4.1          ##
+##  Version 1.2.5            ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -28,6 +28,17 @@ if perl < /dev/null > /dev/null 2>&1  ; then
     else
         echo -e "${red}Perl not Installed - Fail${NC}";
         echo -e "\t \_ To install perl run: yum install perl";
+fi
+
+#Check if wget Installed
+
+echo -e "${yellow}=====WGET CHECK=====${NC}";
+
+if wget < /dev/null > /dev/null 2>&1  ; then
+        echo -e "${green}wget is Installed - Pass${NC}"
+    else
+        echo -e "${red}wget not Installed - Fail${NC}";
+        echo -e "\t \_ To install wget run: yum install wget";
 fi
 
 #Check SELINUX Status
