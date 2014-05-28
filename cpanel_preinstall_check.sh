@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.5.2          ##
+##  Version 1.2.6            ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -45,29 +45,22 @@ fi
 
 echo -e "${yellow}=====SELINUX CHECK=====${NC}";
 
-selinuxfile="/etc/selinux/config"
-
-if [ -f "$selinuxfile" ] ; then
-    if ``cat "$selinuxfile" | grep "#SELINUX=" > /dev/null`` ; then
+if ``cat /etc/selinux/config | grep "#SELINUX=" > /dev/null`` ; then
             echo -e "${red}SELINUX - Fail${NC}";
             echo -e "\t \_ SELINUX is commented out!"
-            echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux, uncommenting SELINUX (remove the # from in front of SELINUX), setting it to disabled and then rebooting the server";
-        elif [ -f "$selinuxfile" ] ; then
-            if ``cat "$selinuxfile" | grep "SELINUX=" | grep "enforcing" > /dev/null`` ; then
-                    echo -e "${red}SELINUX - Fail${NC}";
-                    echo -e "\t \_ SELINUX is set to enforcing!"
-                    echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux, setting it to disabled and then rebooting the server";
-                elif [ -f "$selinuxfile" ] ; then
-                    if ``cat "$selinuxfile" | grep "SELINUX=" | grep "permissive" > /dev/null`` ; then
-                    echo -e "${red}SELINUX - Fail${NC}";
-                    echo -e "\t \_ SELINUX is set to permissive!"
-                    echo -e "\t \_ To fix this please review the following article http://www.cyberciti.biz/faq/howto-turn-off-selinux/ and apply the permanent fix by editing /etc/sysconfig/selinux, setting it to disabled and then rebooting the server";
-                        else
-                            echo -e "${green}SELINUX - Pass${NC}";
-                            echo -e "\t \_ SELINUX appears to be disabled already";
-                        fi
-                fi
-        fi
+            echo -e "\t \_ To fix this edit /etc/sysconfig/selinux, uncomment SELINUX= (remove the # from in front of SELINUX), sett it to disabled and then reboot the server";
+    elif ``sestatus | grep "SELinux status" | grep "enabled" > /dev/null`` ; then 
+        echo -e "${red}SELINUX - Fail${NC}";
+        echo -e "\t \_ Selinux is Enabled and is currently set to `sestatus | grep 'Current mode' | awk '{print $3}'`";
+
+            if ``sestatus | grep "Mode from config file:" | grep "disabled" > /dev/null``; then 
+                echo -e "\t \_ However Selinux is set to disabled in the config file. The server needs to be rebooted to apply the change";
+            else
+                echo -e "\t \_ To fix this edit /etc/sysconfig/selinux, set SELINUX= to disabled and then reboot the server";     
+            fi
+    elif ``sestatus | grep "SELinux status" | grep "disabled" > /dev/null`` ; then 
+        echo -e "${green}SELINUX - Pass${NC}";
+        echo -e "\t \_ SELINUX appears to be disabled already";
 fi
 
 # Check for Yum Groups All Versions (Group names the same accross all versions)
