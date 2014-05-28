@@ -29,7 +29,7 @@ The dev branch versions may differ from the master branch with a more complete v
 1.2.0.3 - cleaned up os check output
 1.2.0.2 - added space to \_ hostname
 1.2.0.1 - cleaned up os and hostname check output
-1.2 - Cleaned up Output, Added Color for easier readability.
+1.2 - Cleaned up Output, Added Color for easier readability, added perl check
 1.1.2.04 - additional code cleanup
 1.1.2.03 - Added FQDN/Hostname check, cleaned up output for yum group 
 1.1.2.02 - Fixed Version Scheme, Added Supported OS Check, & Started Code Cleanup
