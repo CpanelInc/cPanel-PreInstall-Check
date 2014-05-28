@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.5            ##
+##  Version 1.2.5.1          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -18,12 +18,12 @@ NC='\e[0m' # No Color (if Not added, it will change the entire terminal output t
 echo -e "${yellow}=====PERL CHECK=====${NC}";
 
 if perl < /dev/null > /dev/null 2>&1  ; then
-        echo -e "${green}Perl is Installed - Pass${NC}"
-        echo -e "\t \_ Perl `perl -v | grep 'This is perl, v'| awk '{print $4}'` Installed - Verify this is a Supported Version"
+        echo -e "${green}Perl is Installed - Pass${NC}";
+        echo -e "\t \_ Perl `perl -v | grep 'This is perl, v'| awk '{print $4}'` Installed - Verify this is a Supported Version";
             if ``cat /etc/redhat-release | grep "release 6.*" > /dev/null``  ; then
-                echo -e "\t \_ Latest version in Yum is - Perl `yum info perl | grep Version | awk '{print $3}'`"
+                echo -e "\t \_ Latest version in Yum is - Perl `yum info perl | grep Version | awk '{print $3}'`";
             elif ``cat /etc/redhat-release | grep "release 5.*" > /dev/null``  ; then
-                echo -e "\t \_ Latest version in Yum is - Perl ` yum info perl | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}' | grep Version | awk '{print $2}'`"
+                echo -e "\t \_ Latest version in Yum is - Perl ` yum info perl | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}' | grep Version | awk '{print $2}'`";
             fi
     else
         echo -e "${red}Perl not Installed - Fail${NC}";
@@ -34,8 +34,8 @@ fi
 
 echo -e "${yellow}=====WGET CHECK=====${NC}";
 
-if wget < /dev/null > /dev/null 2>&1  ; then
-        echo -e "${green}wget is Installed - Pass${NC}"
+if command -v wget >/dev/null 2>&1  ; then
+        echo -e "${green}wget is Installed - Pass${NC}";
     else
         echo -e "${red}wget not Installed - Fail${NC}";
         echo -e "\t \_ To install wget run: yum install wget";
