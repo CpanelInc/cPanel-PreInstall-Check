@@ -1,0 +1,38 @@
+Branch: Dev
+Commit Log: https://github.com/cpmatthew/cPanel-PreInstall-Check/commits/dev
+
+The dev branch versions may differ from the master branch with a more complete version listing as features are added, tested and fixed in development before being applied to the master/production script. Some versions are updated locally and not pushed to development as well so you can see version discrepancies there as well. The Dev Branch was created after version 1.1.2 in order to test things outside the production script and reduce bugs / issues presented to the end user. 
+
+1.2.5.2 - Fixed a regression in the code structure applied with update 1.2.5.1 for selinux that was fixed in 1.4
+1.2.5.1 - fixed wget check
+1.2.5 - Added a check for wget
+1.2.4.1 - Cleaned up code structure for selinux nested if statments
+1.2.4 - Removed Firewall Check 
+1.2.3 - Fixed FQDN Check output for when dig not installed/added check for dig.
+1.2.2.6 - tweaked os/kernel check section name
+1.2.2.5 - fixed bug in grsec kerel check/
+1.2.2.4 - fixed issue in grsec kerel check/added additional check
+1.2.2.3 - fixed path in kernel check
+1.2.2.2 - added grsec to kernel check
+1.2.2.1 - added color to kernel check
+1.2.2.0 - Added kernel check
+1.2.1.5 - fixed bug perl ver check rhel 5, removed /dev/null from perl version check
+1.2.1.4 - fixed perl version check for rhel 5 OS's
+1.2.1.3 - fixed group check rhel 5 mail server
+1.2.1.2 - Fixed a bug in output
+1.2.1.1 - fixed names on a few yum groups
+1.2.1.0 - Group check updated to safer method
+1.2.0.7 - changed perl installed version check
+1.2.0.6 - added additional info checks for perl
+1.2.0.5 - switched output to a pass/fail system
+1.2.0.4 - more code cleanup
+1.2.0.3 - cleaned up os check output
+1.2.0.2 - added space to \_ hostname
+1.2.0.1 - cleaned up os and hostname check output
+1.2 - Cleaned up Output, Added Color for easier readability.
+1.1.2.04 - additional code cleanup
+1.1.2.03 - Added FQDN/Hostname check, cleaned up output for yum group 
+1.1.2.02 - Fixed Version Scheme, Added Supported OS Check, & Started Code Cleanup
+1.1.2.01 - Added/Fixed FQDN Check created by demasu
+1.1.1 - Removed Auto Fixing Issues and Switched to a Check Only Script, added Version Info into code.
+1.0 - Inital Script, Auto Fixed cPanel Preinstall Issues
