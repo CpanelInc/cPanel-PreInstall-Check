@@ -15,6 +15,8 @@ NC='\e[0m' # No Color (if Not added, it will change the entire terminal output t
 
 #Check if cPanel Install Present
 
+echo -e "${yellow}=====cPanel Install CHECK=====${NC}";
+
 if ls /usr/local/cpanel >/dev/null 2>&1 || ls /var/cpanel >/dev/null 2>&1 || command -v /etc/init.d/cpanel >/dev/null 2>&1 ; then
     echo "${red}cPanel Installed / Previously Installed - Fail${NC}"
     echo "\t \_ You will need to start with a fresh OS install / reinstall the OS before installing cPanel"
