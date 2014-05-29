@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.6            ##
+##  Version 1.2.7            ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -12,6 +12,15 @@ red='\e[0;31m'
 yellow='\e[0;33m'
 NC='\e[0m' # No Color (if Not added, it will change the entire terminal output to the last color used)
 #example echo -e "${green}Show in Green${NC}"
+
+#Check if cPanel Install Present
+
+if ls /usr/local/cpanel >/dev/null 2>&1 || ls /var/cpanel >/dev/null 2>&1 || command -v /etc/init.d/cpanel >/dev/null 2>&1 ; then
+    echo "${red}cPanel Installed / Previously Installed - Fail${NC}"
+    echo "\t \_ You will need to start with a fresh OS install / reinstall the OS before installing cPanel"
+else
+    echo "${green}cPanel not Installed - Pass${NC}"
+fi
 
 #Check if Perl Installed
 
