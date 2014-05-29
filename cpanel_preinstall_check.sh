@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.7.2          ##
+##  Version 1.2.7.3          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -182,6 +182,8 @@ if [[ $hostname = $fqdnhost ]]; then
         echo -e "${green}The server's hostname of $hostname is a FQDN${NC}"
     else
         echo -e "${red}The server's hostname of $hostname is not a FQDN${NC}"
+        echo -e "\t \_ To fix this edit /etc/sysconfig/network and replaced the hostname on the HOSTNAME= line and reboot the server"
+        echo -e "\t \_ For example a FQDN should look like server.domain.com or server.domain.co.uk"
 fi
 
 if dig < /dev/null > /dev/null 2>&1  ; then
@@ -195,12 +197,16 @@ if dig < /dev/null > /dev/null 2>&1  ; then
             else
                 echo -e "\t \_ ${red}The hostname resolves to a different IP than what's set on the server${NC}"
                 echo -e "\t \_ ${red}The hostname should resolve to $hostnameip, but actually resolves to $digresult${NC}"
+                echo -e "\t \_ To fix this edit the A record in DNS for the hostname and point it to this servers primary IP $hostnameip" 
             fi
         else
             echo -e "\t \_ ${red}The hostname on the server does not resolve to an IP address${NC}"
+            echo -e "\t \_ To fix this add an A record to DNS for the hostname and point it to the servers primary IP $hostnameip"
         fi
         else
             echo -e "\t \_ ${red}The server's hostname is not in /etc/hosts!${NC}"
+            echo -e "\t \_ To fix this edit /etc/hosts and use the following example below, replacing server.domain.com with your hostname"
+            echo -e "\t \_ $hostnameip server.domain.com"
     fi
 else
     echo -e "\t \_ ${red}Can't check if hostname resolves to an IP because Dig is not installed.${NC}"
