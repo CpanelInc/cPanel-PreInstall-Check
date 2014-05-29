@@ -23,8 +23,8 @@ if ls /usr/local/cpanel >/dev/null 2>&1 || ls /var/cpanel >/dev/null 2>&1 || com
         echo -e "\t \_ cPanel/WHM `cat /usr/local/cpanel/version` Install Detected"
         echo -e "\t \_ You will need to start with a fresh OS install / reinstall the OS before installing cPanel"
     else
-    echo -e "\t \_ Previous cPanel Installation/Removal Detected"
-    echo -e "\t \_ You will need to start with a fresh OS install / reinstall the OS before installing cPanel"
+        echo -e "\t \_ Previous cPanel Installation/Removal Detected"
+        echo -e "\t \_ You will need to start with a fresh OS install / reinstall the OS before installing cPanel"
     fi
 else
     echo -e "${green}cPanel not Installed - Pass${NC}"
