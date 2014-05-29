@@ -186,6 +186,8 @@ if [[ $hostname = $fqdnhost ]]; then
         echo -e "\t \_ For example a FQDN should look like server.domain.com or server.domain.co.uk"
 fi
 
+echo -e "${yellow}=====HOSTNAME RESOLUTION CHECK=====${NC}"
+
 if dig < /dev/null > /dev/null 2>&1  ; then
 
     if [ $hostnameip != '0' ]; then
