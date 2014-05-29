@@ -3,6 +3,7 @@ Commit Log: https://github.com/cpmatthew/cPanel-PreInstall-Check/commits/dev
 
 The dev branch versions may differ from the master branch with a more complete version listing as features are added, tested and fixed in development before being applied to the master/production script. Some versions are updated locally and not pushed to development as well so you can see version discrepancies there as well. The Dev Branch was created after version 1.1.2 in order to test things outside the production script and reduce bugs / issues presented to the end user. 
 
+1.2.7.4 - additional changes to hostname check output
 1.2.7.3 - Added additional output/info for fixing hostname/fqdn issues
 1.2.7.2 - Added some additional checks/output to cpanel install check
 1.2.7.1 - Corrected bug in cpanel install chek output
