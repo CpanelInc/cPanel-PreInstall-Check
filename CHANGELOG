@@ -3,6 +3,7 @@ Commit Log: https://github.com/cpmatthew/cPanel-PreInstall-Check/commits/dev
 
 The dev branch versions may differ from the master branch with a more complete version listing as features are added, tested and fixed in development before being applied to the master/production script. Some versions are updated locally and not pushed to development as well so you can see version discrepancies there as well. The Dev Branch was created after version 1.1.2 in order to test things outside the production script and reduce bugs / issues presented to the end user. 
 
+1.2.9 - Added switches for help menu, to disable color, improved PASS/FAIL output and added WARN output for certain sections.
 1.2.8.2 - Fixed spacing of if statements to improve readability of the code
 1.2.8 - Reduced spawned processes and subshells of the script by about half
 1.2.7.5 - fixed bug in kernel check syntax (master branch) only updated ver # in dev branch
