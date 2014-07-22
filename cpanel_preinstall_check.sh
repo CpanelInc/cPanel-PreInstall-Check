@@ -76,7 +76,7 @@ if perl < /dev/null > /dev/null 2>&1  ; then
     if `grep "release 6.*" /etc/redhat-release > /dev/null`  ; then
         echo -e "\t \_ Latest version in Yum is - Perl `yum info perl | grep Version | awk '{print $3}'`";
     elif `grep "release 5.*" /etc/redhat-release > /dev/null`  ; then
-        echo -e "\t \_ Latest version in Yum is - Perl ` yum info perl | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}' | grep Version | awk '{print $2}'`";
+        echo -e "\t \_ Latest version in Yum is - Perl ` yum info perl | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}' | grep Version | awk '{print $3}'`";
     fi
 else
     echo -e "${red}[FAIL] * Perl not Installed${NC}";
