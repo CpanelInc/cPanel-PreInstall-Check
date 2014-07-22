@@ -1,9 +1,9 @@
 This script will help you prepare a server for cPanel installation. It will check various requirements and let you know if there is anything that needs to be fixed and how to do so before proceeding with the install. 
 
-To Run The script simply copy either of the following commands into your servers command line and hit enter:
+To run this script run the following on your command line. If you have issues grabbing this with ssl use "--insecure" after "curl -s"
 
 curl -s https://raw.githubusercontent.com/cpmatthew/cPanel-PreInstall-Check/master/cpanel_preinstall_check.sh | sh
 
-or
+To run this script with options use the following. 
 
-curl -s --insecure https://raw.githubusercontent.com/cpmatthew/cPanel-PreInstall-Check/master/cpanel_preinstall_check.sh | sh
+bash <(curl -s https://raw.githubusercontent.com/cpmatthew/cPanel-PreInstall-Check/master/cpanel_preinstall_check.sh) --option
