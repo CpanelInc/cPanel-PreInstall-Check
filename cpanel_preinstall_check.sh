@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.9            ##
+##  Version 1.2.9.1          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -14,7 +14,7 @@ NC='\e[0m' # No Color (if Not added, it will change the entire terminal output t
 #example echo -e "${green}[PASS] * Show in Green${NC}"
 
 # Execute getopt on the arguments passed to this program, identified by the special character $@
-PARSED_OPTIONS=$(getopt -n "$0"  -o hn --long "help,nocolor"  -- "$@")
+PARSED_OPTIONS=$(getopt -n "$0"  -o hnif --long "help,nocolor,install,force-install"  -- "$@")
 
 #Bad arguments, something has gone wrong with the getopt command.
 if [ $? -ne 0 ];
@@ -34,7 +34,7 @@ do
     -h|--help)
         echo "-h / --help : Displays this screen";
         echo "-n / --nocolor : Runs Script without Color Output";
-        exit 1;
+        exit 0;
     shift;;
 
     -n|--nocolor)
@@ -44,6 +44,34 @@ do
         yellow='\e[0m'
         NC='\e[0m'
     shift;;
+
+    -i|--install)
+        if `grep "release 5.*" /etc/redhat-release > /dev/null`  ; then
+            echo -e "${yellow}[WARN] * CentOS 5 (Linux) detected!${NC}"
+            echo -e "[INFO] * In order to take full advantage of all the features provided by cPanel & WHM, such as multiple SSL Certificates on a single IPv4 Address, we highly recommend you use CentOS version 6."
+            echo -e "[INFO] * You can force the install on a CentOS version 5 using the --force-install option."      
+        elif `grep "release 6.*" /etc/redhat-release > /dev/null`  ; then
+            if command -v wget >/dev/null 2>&1  ; then
+                cd /root/ 
+                wget http://httpupdate.cpanel.net/latest;
+                sh latest;
+            else
+                echo -e "wget is not installed, cannot run installer. Please install wget with 'yum install wget'"
+            fi
+        fi
+        exit 0;
+    shift;;
+
+    -f|--force-install)
+        if command -v wget >/dev/null 2>&1  ; then
+            cd /root/ 
+            wget http://httpupdate.cpanel.net/latest;
+            sh latest --force;
+        else
+            echo -e "wget is not installed, cannot run installer. Please install wget with 'yum install wget'"
+        fi
+        exit 0;
+    shift;;    
 
     --)
     shift
