@@ -34,6 +34,8 @@ do
     -h|--help)
         echo "-h / --help : Displays this screen";
         echo "-n / --nocolor : Runs Script without Color Output";
+        echo "-i / --install : Grabs the cPanel Installer and Runs it.";
+        echo "-f / --force-install : Grabs the cPanel Installer and Forces it to run for RHEL 5 based machines";        
         exit 0;
     shift;;
 
