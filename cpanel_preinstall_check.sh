@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.9.1          ##
+##  Version 1.2.9.2          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -19,7 +19,8 @@ PARSED_OPTIONS=$(getopt -n "$0"  -o hnif --long "help,nocolor,install,force-inst
 #Bad arguments, something has gone wrong with the getopt command.
 if [ $? -ne 0 ];
 then
-  exit 1
+   echo "That is not a valid option. Please use --help to find a list of valid options."
+   exit 0
 fi
 
 # A little magic, necessary when using getopt.
@@ -35,7 +36,7 @@ do
         echo "-h / --help : Displays this screen";
         echo "-n / --nocolor : Runs Script without Color Output";
         echo "-i / --install : Grabs the cPanel Installer and Runs it.";
-        echo "-f / --force-install : Grabs the cPanel Installer and Forces it to run for RHEL 5 based machines";        
+        echo "-f / --force-install : Grabs the cPanel Installer and Forces it to run for RHEL 5 based machines";           
         exit 0;
     shift;;
 
