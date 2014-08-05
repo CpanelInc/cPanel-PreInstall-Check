@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.9.2          ##
+##  Version 1.2.9.3          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -55,7 +55,8 @@ do
             echo -e "[INFO] * You can force the install on a CentOS version 5 using the --force-install option."      
         elif `grep "release 6.*" /etc/redhat-release > /dev/null`  ; then
             if command -v wget >/dev/null 2>&1  ; then
-                cd /root/ 
+                cd /root/;
+                mv latest{,.bak.`date +%Y-%m-%d-%H:%M:%S`};
                 wget http://httpupdate.cpanel.net/latest;
                 sh latest;
             else
@@ -67,7 +68,8 @@ do
 
     -f|--force-install)
         if command -v wget >/dev/null 2>&1  ; then
-            cd /root/ 
+            cd /root/;
+            mv latest{,.bak.`date +%Y-%m-%d-%H:%M:%S`};
             wget http://httpupdate.cpanel.net/latest;
             sh latest --force;
         else
