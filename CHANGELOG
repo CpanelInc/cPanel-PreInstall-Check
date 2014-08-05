@@ -1,4 +1,4 @@
-1.2.9.4 - fixed output to rename CentOS 5 to RHEL 5 based machine to be more generic. 
+1.2.9.4 - Fixed output in install swtich to rename CentOS 5 to RHEL 5 based machine to be more generic. 
 1.2.9.3 - Added mv latest to install switch before downloading latest file.
 1.2.9.2 - Added warning if using an invalid option.
 1.2.9.1 - Added install switch and force-install swtich for centos 5 along with warnings for using cent 5. 
