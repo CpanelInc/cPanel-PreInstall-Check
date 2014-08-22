@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.9.4          ##
+##  Version 1.2.9.5          ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -50,9 +50,9 @@ do
 
     -i|--install)
         if `grep "release 5.*" /etc/redhat-release > /dev/null`  ; then
-            echo -e "${yellow}[WARN] * RHEL 5 based machine (Linux) detected!${NC}"
-            echo -e "[INFO] * In order to take full advantage of all the features provided by cPanel & WHM, such as multiple SSL Certificates on a single IPv4 Address, we highly recommend you use a RHEL 6 based machine."
-            echo -e "[INFO] * You can force the install on a RHEL 5 based machine using the --force-install option."      
+            echo -e "${yellow}[WARN] * `awk '{print $1, $3}' /etc/redhat-release` (Linux) detected!${NC}"
+            echo -e "[INFO] * In order to take full advantage of all the features provided by cPanel & WHM, such as multiple SSL Certificates on a single IPv4 Address, we highly recommend you use `awk '{print $1}' /etc/redhat-release` 6.x."
+            echo -e "[INFO] * You can force the install on `awk '{print $1, $3}' /etc/redhat-release` using the --force-install option."      
         elif `grep "release 6.*" /etc/redhat-release > /dev/null`  ; then
             if command -v wget >/dev/null 2>&1  ; then
                 cd /root/;
