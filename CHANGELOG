@@ -1,3 +1,4 @@
+1.2.10 - Added check for courier email server, run level check, tmp 1777 perm check, minimum memory reqt check
 1.2.9.5 - Install Switch now outputs the exact OS when RHEL/CENTOS/CL 5 detected. 
 1.2.9.4 - Fixed output in install swtich to rename CentOS 5 to RHEL 5 based machine to be more generic. 
 1.2.9.3 - Added mv latest to install switch before downloading latest file.

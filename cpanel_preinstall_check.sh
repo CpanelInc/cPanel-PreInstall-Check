@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.9.5          ##
+##  Version 1.2.10           ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -171,6 +171,13 @@ else
     echo -e "${green}[PASS] * X Window System${NC}";
 fi
 
+if `rpm -qa | grep -i courier >  /dev/null`; then
+    echo -e "${red}[FAIL] * Courier E-mail Server${NC}";
+    echo -e "\t \_ To remove this run: rpm -e --nodeps `rpm -qa | grep -i courier`";
+else
+    echo -e "${green}[PASS] * Courier E-Mail Server${NC}";
+fi
+
 # New Group Names CentOS/RHEL 6.*
 if `grep "release 6.*" /etc/redhat-release > /dev/null`  ; then
 
@@ -204,7 +211,7 @@ elif `grep "release 5.*" /etc/redhat-release > /dev/null`  ; then
         echo -e '\t \_ To remove this run: yum groupremove "Mail Server"';
     else
         echo -e "${green}[PASS] * Mail Server${NC}";
-    fi
+    fi 
 
     if `yum grouplist | awk '/Installed Groups:/ {flag=1;next} /Available Groups:/{flag=0} flag {print}' | grep "GNOME Desktop Environment" > /dev/null`; then
         echo -e "${red}[FAIL] * GNOME Desktop Environment${NC}";
@@ -277,7 +284,7 @@ else
 fi
 
 # OS & Kernel Check
-echo -e "====== OS & KERNEL CHECK ======";
+echo -e "====== OS & KERNEL CHECKS ======";
 
 if `grep "release 5.*" /etc/redhat-release > /dev/null`  ; then
     echo -e "${green}[PASS] * The OS is Supported${NC}";
@@ -288,6 +295,27 @@ elif `grep "release 6.*" /etc/redhat-release > /dev/null`  ; then
 else
     echo -e "${red}[FAIL] * The OS is Not Supported${NC}";
     echo -e "\t \_ `cat /etc/redhat-release`"
+fi
+
+if `runlevel | awk '{print $2}' | grep 3 > /dev/null`; then 
+    echo -e "${green}[PASS] * OS Run Level is 3${NC}";
+else 
+    echo -e "${red}[FAIL] * OS Run Level is `runlevel | awk '{print $2}'`${NC}";
+    echo -e "\t \_ To fix this run: init 3";
+fi
+
+if  `stat -c "%a %n" /tmp | awk '{print $1}' | grep 1777 > /dev/null`; then
+    echo -e "${green}[PASS] * /tmp is set to 1777 permissions${NC}";
+else 
+    echo -e "${red}[FAIL] * /tmp is set to `stat -c "%a %n" /tmp | awk '{print $1}'`${NC}";
+    echo -e "\t \_ To fix this run: chmod 1777 /tmp";
+fi
+
+if [[ `free -m | grep "Mem:" | awk '{print $2}'` < 500 ]];then
+    echo -e "${green}[PASS] * System Memory Higher than 500MB${NC}";
+else     
+    echo -e "${red}[FAIL] * System Memory Lower than 500MB${NC}";
+    echo -e "Please install at least 500MB to 1GB of Memory before using cPanel";
 fi
 
 if `uname -r | grep "grs" > /dev/null`; then
@@ -305,3 +333,4 @@ else
     echo -e "${red}[FAIL] * Kernel Not Supported${NC}";
     echo -e "\t \_ `uname -r`";
 fi
+
