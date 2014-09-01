@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.10           ##
+##  Version 1.2.10.1         ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -334,3 +334,5 @@ else
     echo -e "\t \_ `uname -r`";
 fi
 
+echo -e "${yellow}[INFO] * Verify System has enough Disk Space to install cPanel${NC}"; 
+echo -e "`df -h`";
