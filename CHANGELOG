@@ -1,3 +1,4 @@
+1.2.10.3 - Removed the double brackets in the memory check as they appeared to be breaking this on some systems
 1.2.10.2 - Fixed memory check from 500 to 512
 1.2.10.1 - Added check to print out disk space
 1.2.10 - Added check for courier email server, run level check, tmp 1777 perm check, minimum memory reqt check
