@@ -311,11 +311,11 @@ else
     echo -e "\t \_ To fix this run: chmod 1777 /tmp";
 fi
 
-if [ "`free -m | grep "Mem:" | awk '{print $2}'`" < "512" ];then
-  echo -e "${green}[PASS] * System Memory Higher than 512MB${NC}";
+if [[ $( awk '/MemTotal/ { print $2 }' /proc/meminfo ) < 524288 ]];then
+ echo -e "${green}[PASS] * System Memory Higher than 512MB${NC}";
 else
-  echo -e "${red}[FAIL] * System Memory Lower than 512MB${NC}";
-  echo -e "Please install at least 512MB to 1GB of Memory before using cPanel";
+ echo -e "${red}[FAIL] * System Memory Lower than 512MB${NC}";
+ echo -e "Please install at least 512MB to 1GB of Memory before using cPanel";
 fi
 
 if `uname -r | grep "grs" > /dev/null`; then
