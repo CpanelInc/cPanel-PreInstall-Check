@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.2.10.1         ##
+##  Version 1.2.10.2         ##
 ##  By: Matthew Vetter       ##
 ##      cPanel, Inc.         ##
 ###############################
@@ -311,11 +311,11 @@ else
     echo -e "\t \_ To fix this run: chmod 1777 /tmp";
 fi
 
-if [[ `free -m | grep "Mem:" | awk '{print $2}'` < 500 ]];then
-    echo -e "${green}[PASS] * System Memory Higher than 500MB${NC}";
+if [[ `free -m | grep "Mem:" | awk '{print $2}'` < 512 ]];then
+    echo -e "${green}[PASS] * System Memory Higher than 512MB${NC}";
 else     
-    echo -e "${red}[FAIL] * System Memory Lower than 500MB${NC}";
-    echo -e "Please install at least 500MB to 1GB of Memory before using cPanel";
+    echo -e "${red}[FAIL] * System Memory Lower than 512MB${NC}";
+    echo -e "Please install at least 512MB to 1GB of Memory before using cPanel";
 fi
 
 if `uname -r | grep "grs" > /dev/null`; then
