@@ -86,7 +86,7 @@ oskernelchk();
 
 if ($failed){
     if (!$fixit){
-        print "\n${yellow}[INFO] * YOU CAN FIX FAILURES BY RE-RUNNING THE SCRIPT WITH --fix${NC}\n";
+        print "\n${yellow}[INFO] * YOU CAN FIX FAILURES/WARNINGS BY RE-RUNNING THE SCRIPT WITH --fix${NC}\n";
     }
 }
 
@@ -122,6 +122,7 @@ sub cpanelchk{
             print "\t \_ Previous cPanel Installation/Removal Detected\n";
             print "\t \_ You will need to start with a fresh OS install / reinstall the OS before installing cPanel\n";
         }
+        print "========================================================================================================================\n";
         exit 0;    
     }
     else {
@@ -183,22 +184,22 @@ print "\n${UL}SELINUX  CHECK:${UE}\n";
 
     if (`grep "#SELINUX=" /etc/selinux/config`){
         print "${red}[FAIL] * SELINUX${NC}\n";
-        	print "\t \\_ SELINUX is commented out!\n";
-        	if ($fixit == 1) {
-        		print "\t \\_ To fix this edit /etc/sysconfig/selinux, uncomment SELINUX= (remove the # from in front of SELINUX), set it to disabled and then reboot the server\n";
-    		} 
+            print "\t \\_ SELINUX is commented out!\n";
+            if ($fixit == 1) {
+                print "\t \\_ To fix this edit /etc/sysconfig/selinux, uncomment SELINUX= (remove the # from in front of SELINUX), set it to disabled and then reboot the server\n";
+            } 
     }
     elsif (`sestatus | grep "enabled"`) {
         print "${red}[FAIL] * SELINUX${NC}\n";
-        	print "\t \\_ Selinux is Enabled and is currently set to $selinuxmode\n";
+            print "\t \\_ Selinux is Enabled and is currently set to $selinuxmode\n";
 
         if (`sestatus | grep "Mode from config file:" | grep "disabled"`) {
-            	print "\t \\_ However Selinux is set to disabled in the config file. The server needs to be rebooted to apply the change\n";
+                print "\t \\_ However Selinux is set to disabled in the config file. The server needs to be rebooted to apply the change\n";
         
         }
         else{
             if ($fixit == 1) {
-            	print "\t \\_ To fix this edit /etc/sysconfig/selinux, set SELINUX= to disabled and then reboot the server\n";
+                print "\t \\_ To fix this edit /etc/sysconfig/selinux, set SELINUX= to disabled and then reboot the server\n";
             }
         }
 }
