@@ -4,7 +4,7 @@ if 0;
 #!/usr/bin/perl
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.3.0.06         ##
+##  Version 1.3.0.07         ##
 ##  By: Matthew Vetter       ##
 ###############################
 
@@ -16,6 +16,22 @@ my $yellow="\e[0;33m";
 my $NC="\e[0m";
 my $UL = "\e[4m";
 my $UE = "\e[0m";
+
+#Let's make sure /etc/redhat-release exists before proceeding
+if (-e "/etc/redhat-release") {
+$rhelexists = "yes";
+}
+else {
+    print "${yellow}[WARN]\t \\_ /etc/redhat-release is missing. Are you running CentOS or RedHat?${NC}\n";
+    print "\t \\_ To run cPanel and this script you must be running CentOS or RedHat Enterprise Linux!\n";
+    exit 0;
+}
+#Don't Move, Else We Break the Install Switches.
+my $rhel5 = `grep "release 5.*" /etc/redhat-release`;
+my $rhel6 = `grep "release 6.*" /etc/redhat-release`;
+my $rhel7 = `grep "release 7.*" /etc/redhat-release`; #future rhel 7 support
+chomp(my $rhel = `awk '{print \$1, \$3}' /etc/redhat-release`);
+chomp(my $rhelrec = `awk '{print \$1}' /etc/redhat-release`);
 
 print "========================================================================================================================\n";
 
@@ -56,6 +72,8 @@ if ($install == 1) {
     elsif ($rhel6) {
         &cpinstall;
     }
+    print "========================================================================================================================\n";
+    
     exit 0;
 }
 if ($forceinstall == 1) {
@@ -67,11 +85,6 @@ cpanelchk();
 
 #resolvechk();
 
-chomp(my $rhel = `awk '{print \$1, \$3}' /etc/redhat-release`);
-chomp(my $rhelrec = `awk '{print \$1}' /etc/redhat-release`);
-my $rhel5 = `grep "release 5.*" /etc/redhat-release`;
-my $rhel6 = `grep "release 6.*" /etc/redhat-release`;
-my $rhel7 = `grep "release 7.*" /etc/redhat-release`; #future rhel 7 support
 chomp(my $perlrhel6 = `yum info perl 2>/dev/null | awk '/Version/{print \$3}'`);
 chomp(my $perlrhel5 = `yum info perl 2>/dev/null | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}'  | awk '/Version/{print \$3}'`);
 chomp(my $selinuxmode = `sestatus | awk '/Current mode:/ {print \$3}'`);
