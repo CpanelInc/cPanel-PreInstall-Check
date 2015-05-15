@@ -126,7 +126,7 @@ print "\n=======================================================================
 
 #Sub Routines
 sub cpinstall {
-    if (`wget`){
+    if (`wget --help`){
         chdir "/root/" or die "Cannot change to root\n"; 
         rename "latest" => "latest.bak";
         system("wget http://httpupdate.cpanel.net/latest");
