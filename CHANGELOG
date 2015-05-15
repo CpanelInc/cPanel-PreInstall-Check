@@ -1,3 +1,9 @@
+1.3.1:
+- Fixed Hostname Check if Dashes were in hostname
+- Fixed Install Switch
+- Implemented a check to see if a RHEL based OS was installed or bail
+- Implemented some new checks and flags for RHEL 7 as we now support CentOS 7 and 3.x kernels in 11.50 as a Tech Preview. 
+
 1.3.0.06:
 
  - Completely rewritten in Perl

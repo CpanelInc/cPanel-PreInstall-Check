@@ -4,7 +4,7 @@ if 0;
 #!/usr/bin/perl
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.3.0.07         ##
+##  Version 1.3.1            ##
 ##  By: Matthew Vetter       ##
 ###############################
 
@@ -31,9 +31,15 @@ my $rhel5 = `grep "release 5.*" /etc/redhat-release`;
 my $rhel6 = `grep "release 6.*" /etc/redhat-release`;
 my $rhel7 = `grep "release 7.*" /etc/redhat-release`; #future rhel 7 support
 chomp(my $rhel = `awk '{print \$1, \$3}' /etc/redhat-release`);
+chomp(my $rhel7prnt = `awk '{print \$1, \$4}' /etc/redhat-release`);
 chomp(my $rhelrec = `awk '{print \$1}' /etc/redhat-release`);
 
 print "========================================================================================================================\n";
+
+print "cPanel Preinstall Check\n";
+print "[Version] 1.3.1\n";
+print "[INFO] * This script has been deprecated and updates may no longer occur. Please utilize the cPanel Installer\n."; 
+print "[INFO] * You can run the installer from this script using --install or download it manually\n";
 
 my $nocolor = 0;
 my $fixit = 0;
@@ -45,6 +51,7 @@ GetOptions ( 'nocolor' => sub{ $nocolor = 1 },
              'fix|okdoit' => sub{ $fixit = 1 }, 
              'help|h|option' => sub{ $help = 1 }, 
              'install' => sub{ $install = 1 }, 
+             'install7' => sub{ $install7 = 1 }, 
              'force-install' => sub{ $forceinstall = 1 } 
             );
 
@@ -72,11 +79,22 @@ if ($install == 1) {
     elsif ($rhel6) {
         &cpinstall;
     }
+    elsif ($rhel7) {
+        print "${yellow}[WARN] * $rhel7prnt is only supported as a Tech Preview${NC}\n";
+        print "[INFO] * To install cPanel on $rhel7prnt you must run the following command first:\n";
+        print "[INFO] * echo >> "CPANEL=edge" /etc/cpupdate.conf\n";
+        print "[INFO] * Then re-run this script with --install7";
+    }
     print "========================================================================================================================\n";
     
     exit 0;
 }
 if ($forceinstall == 1) {
+    &cpinstall;
+    exit 0;
+}
+
+if ($install7 == 1) {
     &cpinstall;
     exit 0;
 }
@@ -351,8 +369,8 @@ sub hostnamechk{
 
     print "\n${UL}HOSTNAME CHECK:${UE}\n";
     chomp(my $hostname=`hostname`);
-    chomp(my $hostnameip=`curl http://cpanel.net/myip 2>/dev/null`);
-    chomp(my $fqdnhost=`hostname | grep -P '[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+[.]+[a-zA-Z0-9]'`);
+    chomp(my $hostnameip=`curl -s -L http://cpanel.net/myip 2>/dev/null`);
+    chomp(my $fqdnhost=`hostname | grep -P '[a-zA-Z0-9-]+[.]+[a-zA-Z0-9-]+[.]+[a-zA-Z0-9]+'`);
 
     if ($hostname eq $fqdnhost){
         print "${green}[PASS] * The server's hostname of $hostname is a FQDN${NC}\n";
@@ -499,6 +517,10 @@ sub oskernelchk{
         print "${green}[PASS] * The OS is Supported${NC}\n";
         print "\t \\_ $rhel\n";
     }
+    elsif ($rhel7) {
+        print "${green}[PASS] * The OS is Supported as a Technical Preview in cPanel 11.50${NC}\n";
+        print "\t \\_ $rhel7prnt\n";
+    }
     else{
         print "${red}[FAIL] * The OS is Not Supported${NC}\n";
     }
@@ -550,6 +572,12 @@ sub oskernelchk{
     elsif (`uname -r | grep -P "2.[0-9]."`){
         print "${green}[PASS] * Kernel Supported${NC}\n";
         print "\t \\_ $uname\n";
+    }
+    elsif ($rhel7) {
+        if (`uname -r | grep -P "3.[0-9]."`){
+        print "${green}[PASS] * Kernel Supported as we are running $rhel7prnt${NC}\n";
+        print "\t \\_ $uname\n";
+        }
     }
     else{
         print "${yellow}[WARN] * Kernel Not Supported. If you have issues installing cPanel please switch to the stock kernel and try re-installing.${NC}\n";
