@@ -36,11 +36,6 @@ chomp(my $rhelrec = `awk '{print \$1}' /etc/redhat-release`);
 
 print "========================================================================================================================\n";
 
-print "cPanel Preinstall Check\n";
-print "[Version] 1.3.1\n";
-print "[INFO] * This script has been deprecated and updates may no longer occur. Please utilize the cPanel Installer\n."; 
-print "[INFO] * You can run the installer from this script using --install or download it manually\n";
-
 my $nocolor = 0;
 my $fixit = 0;
 my $help = 0;
@@ -80,10 +75,11 @@ if ($install == 1) {
         &cpinstall;
     }
     elsif ($rhel7) {
+        print "\n";
         print "${yellow}[WARN] * $rhel7prnt is only supported as a Tech Preview${NC}\n";
         print "[INFO] * To install cPanel on $rhel7prnt you must run the following command first:\n";
-        print "[INFO] * echo >> "CPANEL=edge" /etc/cpupdate.conf\n";
-        print "[INFO] * Then re-run this script with --install7";
+        print "\t \\_ echo \>> \"CPANEL=edge\" /etc/cpupdate.conf\n";
+        print "[INFO] * Then re-run this script with --install7\n";
     }
     print "========================================================================================================================\n";
     
@@ -98,6 +94,11 @@ if ($install7 == 1) {
     &cpinstall;
     exit 0;
 }
+
+print "cPanel Preinstall Check\n";
+print "[Version] 1.3.1\n";
+print "[INFO] * This script has been deprecated and updates may no longer occur. Please utilize the cPanel Installer.\n"; 
+print "[INFO] * You can run the installer from this script using --install or download it manually.\n";
 
 cpanelchk();
 
