@@ -18,7 +18,7 @@ my $UL     = "\e[4m";
 my $UE     = "\e[0m";
 
 #Let's make sure /etc/redhat-release exists before proceeding
-if ( -e "/etc/redhat-release" ) {
+if ( -e "/etc/redhat-release" || -e "/etc/system-release") {
     $rhelexists = "yes";
 }
 else {
