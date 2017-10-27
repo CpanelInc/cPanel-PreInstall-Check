@@ -4,7 +4,7 @@ if 0;
 #!/usr/bin/perl
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.4.0            ##
+##  Version 1.4.1            ##
 ##  By: Matthew Vetter       ##
 ###############################
 
@@ -79,8 +79,8 @@ if ( $install == 1 ) {
 }
 
 print "cPanel Preinstall Check\n";
-print "[Version] 1.4.0\n";
-print "[Updated] May 24th 2016\n";
+print "[Version] 1.4.1\n";
+print "[Updated] October 25th 2017\n";
 print "[INFO] * This script has been deprecated and updates may no longer occur. Please utilize the cPanel Installer.\n";
 print "[INFO] * You can run the installer from this script using --install or download it manually.\n";
 
@@ -92,10 +92,12 @@ chomp( my $perlrhel6   = `yum info perl 2>/dev/null | awk '/Version/{print \$3}'
 chomp( my $perlrhel5   = `yum info perl 2>/dev/null | awk '/Installed Packages/ {flag=1;next} /Available Packages/{flag=0} flag {print}'  | awk '/Version/{print \$3}'` );
 chomp( my $selinuxmode = `sestatus | awk '/Current mode:/ {print \$3}'` );
 chomp( my $cpversion   = `[ -e /usr/local/cpanel/version ] && awk '{print \$1}' /usr/local/cpanel/version` );
+chomp( my $nmcontrolled = `systemctl status NetworkManager | grep -ow running`);
 
 #perlchk();
 wgetchk();
 selinuxchk();
+nmcontrolledchk();
 yumgroupchk();
 hostnamechk();
 oskernelchk();
@@ -187,6 +189,25 @@ sub wgetchk {
                 print "\t \\_ To fix manually install wget with: yum install wget\n";
             }
         }
+    }
+}
+
+sub nmcontrolledchk {
+    print "\n${UL}NETWORK MANAGER CHECK:${UE}\n";
+    if ($nmcontrolled) {
+        print "${red}[FAIL] * NetworkManager is running${NC}\n";
+        if ( $fixit == 1 ) {
+            print "\t \\_ To fix this see - https://documentation.cpanel.net/display/CKB/How+to+Disable+Network+Manager\n";
+        }
+    }
+    elsif (-e "/etc/systemd/system/dbus-org.freedesktop.NetworkManager.service") {
+        print "${yellow}[WARN] * NetworkManager is not running but is enabled${NC}\n";
+            if ( $fixit == 1 ) {
+                 print "\t \\_ To fix this see - https://documentation.cpanel.net/display/CKB/How+to+Disable+Network+Manager\n";
+             }
+        }
+    else {
+        print "${green}[PASS] * Network Manager is disabled${NC}\n";
     }
 }
 
