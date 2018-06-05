@@ -1,4 +1,10 @@
-1.4.0: 
+1.4.2:
+- Added colors for [INFO] output.
+
+1.4.1:
+- Added NetworkManager Detection.
+
+1.4.0:
 - Tidied up the code
 - Added Amazon Linux as a Supported OS
 - Finally noted that RHEL 7 based OS's are fully supported
@@ -8,27 +14,26 @@
 - Fixed Hostname Check if Dashes were in hostname
 - Fixed Install Switch
 - Implemented a check to see if a RHEL based OS was installed or bail
-- Implemented some new checks and flags for RHEL 7 as we now support CentOS 7 and 3.x kernels in 11.50 as a Tech Preview. 
+- Implemented some new checks and flags for RHEL 7 as we now support CentOS 7 and 3.x kernels in 11.50 as a Tech Preview.
 
 1.3.0.06:
-
- - Completely rewritten in Perl
- - Imporoved and Cleaned Up Output
- - It will now quit if a cPanel Install/Removal was detected and no further checks will be performed.
- - There is built in support for installing perl if found to be missing at the start of the script (script starts in bash and moves to perl once verified to exist.).
- - Interactivity Added. Now you will be prompted to auto fix certain issues at the end of the script, such as hostname, dig, wget, yum groups. Everything else gives you manual commands to fix. 
- - The Yum Group Check no longer prints out a combined PASS/FAIL with all groups. It now only prints out groups with a FAIL that need to be removed or will print a simple PASS if no FAILs found.  
- - Script Supports RHEL 5, 6 & 7. 
+- Completely rewritten in Perl
+- Imporoved and Cleaned Up Output
+- It will now quit if a cPanel Install/Removal was detected and no further checks will be performed.
+- There is built in support for installing perl if found to be missing at the start of the script (script starts in bash and moves to perl once verified to exist.)
+- Interactivity Added. Now you will be prompted to auto fix certain issues at the end of the script, such as hostname, dig, wget, yum groups. Everything else gives you manual commands to fix.
+- The Yum Group Check no longer prints out a combined PASS/FAIL with all groups. It now only prints out groups with a FAIL that need to be removed or will print a simple PASS if no FAILs found.
+- Script Supports RHEL 5, 6 & 7.
 
 1.2.10.3 - Removed the double brackets in the memory check as they appeared to be breaking this on some systems
 1.2.10.2 - Fixed memory check from 500 to 512
 1.2.10.1 - Added check to print out disk space
 1.2.10 - Added check for courier email server, run level check, tmp 1777 perm check, minimum memory reqt check
-1.2.9.5 - Install Switch now outputs the exact OS when RHEL/CENTOS/CL 5 detected. 
-1.2.9.4 - Fixed output in install swtich to rename CentOS 5 to RHEL 5 based machine to be more generic. 
+1.2.9.5 - Install Switch now outputs the exact OS when RHEL/CENTOS/CL 5 detected.
+1.2.9.4 - Fixed output in install swtich to rename CentOS 5 to RHEL 5 based machine to be more generic.
 1.2.9.3 - Added mv latest to install switch before downloading latest file.
 1.2.9.2 - Added warning if using an invalid option.
-1.2.9.1 - Added install switch and force-install swtich for centos 5 along with warnings for using cent 5. 
+1.2.9.1 - Added install switch and force-install swtich for centos 5 along with warnings for using cent 5.
 1.2.9 - Added switches for help menu, to disable color, improved PASS/FAIL output and added WARN output for certain sections. Changed the section output from yellow to white.  Added fix for latest perl version check in RHEL/Cent/CL 5.
 1.2.8.2 - Fixed spacing of if statements to improve readability of the code
 1.2.8 - Reduced spawned processes and subshells of the script by about half
@@ -43,7 +48,7 @@
 1.2.5.1 - fixed wget check
 1.2.5 - Added a check for wget
 1.2.4.1 - Cleaned up code structure for selinux nested if statments
-1.2.4 - Removed Firewall Check 
+1.2.4 - Removed Firewall Check
 1.2.3 - Fixed FQDN Check output for when dig not installed/added check for dig.
 1.2.2.6 - tweaked os/kernel check section name
 1.2.2.5 - fixed bug in grsec kerel check/
