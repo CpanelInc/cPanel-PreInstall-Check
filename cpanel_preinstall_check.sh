@@ -4,7 +4,7 @@ if 0;
 #!/usr/bin/perl
 ###############################
 ##  cPanel Preinstall Check  ##
-##  Version 1.4.1            ##
+##  Version 1.4.2            ##
 ##  By: Matthew Vetter       ##
 ###############################
 
@@ -13,6 +13,7 @@ use Getopt::Long;
 my $green  = "\e[0;32m";
 my $red    = "\e[0;31m";
 my $yellow = "\e[0;33m";
+my $cyan   = "\e[0;36m";
 my $NC     = "\e[0m";
 my $UL     = "\e[4m";
 my $UE     = "\e[0m";
@@ -63,12 +64,13 @@ if ( $nocolor == 1 ) {
     $green  = "\e[0m";
     $red    = "\e[0m";
     $yellow = "\e[0m";
+    $cyan   = "\e[0m";
     $NC     = "\e[0m";
 }
 if ( $install == 1 ) {
     if ( $rhel5 || $bit32 ) {
         print "${red}[FAIL] * $rhel (Linux) / 32-bit OS detected!${NC}\n";
-        print "[INFO] * cPanel no longer supports RHEL 5 or 32 bits systems. Please upgrade to CentOS 6 64-bit or CentOS 7 64-bit\n";
+        print "${cyan}[INFO] * cPanel no longer supports RHEL 5 or 32 bits systems. Please upgrade to CentOS 6 64-bit or CentOS 7 64-bit.${NC}\n";
     }
     elsif ( $rhel6 || rhel7 ) {
         &cpinstall;
@@ -79,10 +81,10 @@ if ( $install == 1 ) {
 }
 
 print "cPanel Preinstall Check\n";
-print "[Version] 1.4.1\n";
-print "[Updated] October 25th 2017\n";
-print "[INFO] * This script has been deprecated and updates may no longer occur. Please utilize the cPanel Installer.\n";
-print "[INFO] * You can run the installer from this script using --install or download it manually.\n";
+print "[Version] 1.4.2\n";
+print "[Updated] June 5 2018\n";
+print "${cyan}[INFO] * This script has been deprecated and updates may no longer occur. Please utilize the cPanel Installer.${NC}\n";
+print "${cyan}[INFO] * You can run the installer from this script using --install or download it manually.${NC}\n";
 
 cpanelchk();
 
@@ -104,7 +106,7 @@ oskernelchk();
 
 if ($failed) {
     if ( !$fixit ) {
-        print "\n${yellow}[INFO] * YOU CAN FIX FAILURES/WARNINGS BY RE-RUNNING THE SCRIPT WITH --fix${NC}\n";
+        print "\n${cyan}[INFO] * YOU CAN FIX FAILURES/WARNINGS BY RE-RUNNING THE SCRIPT WITH --fix${NC}\n";
     }
 }
 
@@ -593,7 +595,7 @@ sub oskernelchk {
         print "\t \\_ $uname\n";
     }
 
-    print "${yellow}[INFO] * Verify System has enough Disk Space to install cPanel. You should have at least 6GB of space in / or /usr${NC}\n";
+    print "${cyan}[INFO] * Verify System has enough Disk Space to install cPanel. You should have at least 6GB of space in / or /usr${NC}\n";
     my $dflines = `df -h`;
 
     foreach $line ( split /\n/, $dflines ) {
